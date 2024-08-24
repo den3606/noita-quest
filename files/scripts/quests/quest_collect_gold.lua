@@ -58,7 +58,6 @@ local function new()
     name = 'You are rich',
     time_sec = 60,
     difficulty = 1,
-    start_gold = start_gold,
     current_value = 0,
     goal_value = start_gold + target_gold,
     reward_names = { REWARD.GOLD },

@@ -45,3 +45,10 @@
     -- └✅💰️ You are rich [220g/200g]
     -- └❎💓 Strong Heart [0/3]
 ```
+
+Noita
+└Quest Entity
+ └Quest 1
+ └Quest 2
+ └Quest 3
+ ....

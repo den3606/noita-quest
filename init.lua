@@ -20,15 +20,9 @@ function OnModPostInit()
 end
 
 function OnPlayerSpawned(player_entity)
-  Coil.add(function()
-    -- playerが選んだクエスト
-    local player_picked_quest_ids = { QUEST.COLLECT_GOLD, QUEST.COLLECT_GOLD }
-    QuestManager.add(player_picked_quest_ids)
-    while true do
-      QuestManager.update()
-      Coil.wait(60)
-    end
-  end)
+  -- playerが選んだクエスト
+  local player_picked_quest_ids = { QUEST.COLLECT_GOLD, QUEST.COLLECT_GOLD }
+  QuestManager.add(player_picked_quest_ids)
 end
 
 function OnWorldInitialized() -- This is called once the game world is initialized. Doesn't ensure any world chunks actually exist. Use OnPlayerSpawned to ensure the chunks around player have been loaded or created.
@@ -40,10 +34,8 @@ function OnWorldPreUpdate() -- This is called every time the game is about to st
 end
 
 function OnWorldPostUpdate() -- This is called every time the game has finished updating the world
-  Coil.update(1)
-
   Gui.draw(function(gui)
-    QuestBoardGui.draw_quest_board(gui, QuestManager.get_assigned_quests())
+    QuestBoardGui.draw_quest_board(gui, QuestManager.get_assigned_quest_entities())
   end)
 end
 

@@ -1,0 +1,49 @@
+<Entity name="quest_collect_gold" tags="noita_uqest">
+
+  <VariableStorageComponent
+    name="id"
+    value_string="quest_collect_gold"
+  ></VariableStorageComponent>
+  <VariableStorageComponent
+    name="name"
+    value_string="You are rich"
+  ></VariableStorageComponent>
+  <VariableStorageComponent
+    name="time_sec"
+    value_int="60"
+  ></VariableStorageComponent>
+  <VariableStorageComponent
+    name="difficulty"
+    value_int="1"
+  ></VariableStorageComponent>
+  <VariableStorageComponent
+    name="current_value"
+    value_int="0"
+  ></VariableStorageComponent>
+  <VariableStorageComponent
+    name="goal_value"
+    value_int="0"
+  ></VariableStorageComponent>
+  <VariableStorageComponent
+    name="status"
+    value_int="1"
+  ></VariableStorageComponent>
+  <VariableStorageComponent
+    name="reward_names"
+    value_string="reward_gold"
+  ></VariableStorageComponent>
+  <VariableStorageComponent
+    name="punishment_names"
+    value_string="punishment_gold"
+  ></VariableStorageComponent>
+  <VariableStorageComponent
+    name="target_gold"
+    value_int="2000"
+  ></VariableStorageComponent>
+
+  <LuaComponent
+    script_source_file="mods/noita-quest/files/scripts/quests/collect_gold/quest_collect_gold_init.lua"
+    execute_on_added="1"
+    remove_after_executed="1"
+  ></LuaComponent>
+</Entity>
