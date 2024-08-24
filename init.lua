@@ -1,6 +1,8 @@
 dofile_once("mods/noita-quest/files/scripts/lib/utilities.lua")
 Coil = dofile_once("mods/noita-quest/files/scripts/lib/coil/coil.lua")
 QuestManager = dofile_once("mods/noita-quest/files/scripts/quest_manager.lua")
+Gui = dofile_once("mods/noita-quest/files/scripts/gui/gui.lua")
+QuestBoardGui = dofile_once("mods/noita-quest/files/scripts/gui/quest_board.lua")
 
 print("noita-quest load")
 
@@ -19,8 +21,8 @@ end
 function OnPlayerSpawned(player_entity)
   Coil.add(function()
     -- playerが選んだクエスト
-    local player_picked_quest_names = { 'collect_gold' }
-    QuestManager.add(player_picked_quest_names)
+    local player_picked_quest_ids = { 'collect_gold', 'collect_gold' }
+    QuestManager.add(player_picked_quest_ids)
     while true do
       QuestManager.update()
       Coil.wait(60)
@@ -38,6 +40,10 @@ end
 
 function OnWorldPostUpdate() -- This is called every time the game has finished updating the world
   Coil.update(1)
+
+  Gui.draw(function(gui)
+    QuestBoardGui.draw_quest_board(gui, QuestManager.get_assigned_quests())
+  end)
 end
 
 function OnMagicNumbersAndWorldSeedInitialized() -- this is the last point where the Mod* API is available. after this materials.xml will be loaded.

@@ -32,9 +32,18 @@ local function timed_out(self)
 end
 
 local function new()
-  local quest_name = 'collect_heart'
-  local quest_time_sec = 60 * 5
-  local difficulty = 3
+  local REWARD = dofile_once("mods/noita-quest/files/scripts/rewards/reward_names.lua")
+  local PUNISHMENT = dofile_once("mods/noita-quest/files/scripts/punishments/punishment_names.lua")
+
+  local quest_params = {
+    id = 'collect_heart',
+    name = 'Strong Heart',
+    time_sec = 60 * 5,
+    difficulty = 3,
+    reward_names = { REWARD.GOLD },
+    punishment_names = { PUNISHMENT.GOLD }
+  }
+
   local quest_functions = {
     init = init,
     update = update,
@@ -42,7 +51,7 @@ local function new()
     completed = completed,
     timed_out = timed_out
   }
-  return quest.new(quest_name, quest_time_sec, difficulty, quest_functions, quest_functions)
+  return quest.new(quest_params, quest_functions)
 end
 
 return {
