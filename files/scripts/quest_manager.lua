@@ -2,7 +2,7 @@ local assigned_quests = {}
 
 local function add(quest_names)
   for index, value in ipairs(quest_names) do
-    local quest = dofile_once("mods/noita-quest/files/scripts/quests/quest_" .. value .. ".lua")
+    local quest = dofile_once("mods/noita-quest/files/scripts/quests/" .. value .. ".lua")
 
     if quest then
       table.insert(assigned_quests, quest.new())

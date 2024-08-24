@@ -1,6 +1,6 @@
 local STATUS = dofile_once("mods/noita-quest/files/scripts/quests/quest_status.lua")
 
----@param quest_params table { id: string, name: string, time_sec: number, difficulty: number, reward_names: table, punishment_names: table }
+---@param quest_params table { id: string, name: string, time_sec: number, difficulty: number, current_value: number, goal_value: number, reward_names: table, punishment_names: table }
 ---@param quest_functions table { init: function, update: function, in_progress: function, completed: function, timed_out: function  }
 local function new(quest_params, quest_functions)
   local quest = {
@@ -8,6 +8,8 @@ local function new(quest_params, quest_functions)
     name = quest_params.name,
     time_sec = quest_params.time_sec,
     difficulty = quest_params.difficulty,
+    current_value = quest_params.current_value,
+    goal_value = quest_params.goal_value,
     reward_names = quest_params.reward_names,
     punishment_names = quest_params.punishment_names,
     status = STATUS.IN_PROGRESS,

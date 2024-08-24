@@ -1,5 +1,6 @@
 local quest = dofile_once("mods/noita-quest/files/scripts/quests/quest.lua")
 local STATUS = dofile_once("mods/noita-quest/files/scripts/quests/quest_status.lua")
+local QUEST = dofile_once("mods/noita-quest/files/scripts/quests/quest_names.lua")
 
 local function init(self)
   print('init process')
@@ -36,7 +37,7 @@ local function new()
   local PUNISHMENT = dofile_once("mods/noita-quest/files/scripts/punishments/punishment_names.lua")
 
   local quest_params = {
-    id = 'collect_heart',
+    id = QUEST.COLLECT_HEART,
     name = 'Strong Heart',
     time_sec = 60 * 5,
     difficulty = 3,

@@ -1,8 +1,9 @@
 dofile_once("mods/noita-quest/files/scripts/lib/utilities.lua")
-Coil = dofile_once("mods/noita-quest/files/scripts/lib/coil/coil.lua")
-QuestManager = dofile_once("mods/noita-quest/files/scripts/quest_manager.lua")
-Gui = dofile_once("mods/noita-quest/files/scripts/gui/gui.lua")
-QuestBoardGui = dofile_once("mods/noita-quest/files/scripts/gui/quest_board.lua")
+local Coil = dofile_once("mods/noita-quest/files/scripts/lib/coil/coil.lua")
+local QuestManager = dofile_once("mods/noita-quest/files/scripts/quest_manager.lua")
+local Gui = dofile_once("mods/noita-quest/files/scripts/gui/gui.lua")
+local QuestBoardGui = dofile_once("mods/noita-quest/files/scripts/gui/quest_board.lua")
+local QUEST = dofile_once("mods/noita-quest/files/scripts/quests/quest_names.lua")
 
 print("noita-quest load")
 
@@ -21,7 +22,7 @@ end
 function OnPlayerSpawned(player_entity)
   Coil.add(function()
     -- playerが選んだクエスト
-    local player_picked_quest_ids = { 'collect_gold', 'collect_gold' }
+    local player_picked_quest_ids = { QUEST.COLLECT_GOLD, QUEST.COLLECT_GOLD }
     QuestManager.add(player_picked_quest_ids)
     while true do
       QuestManager.update()

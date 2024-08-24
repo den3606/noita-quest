@@ -1,6 +1,7 @@
 dofile_once("mods/noita-quest/files/scripts/lib/utilities.lua")
 local quest = dofile_once("mods/noita-quest/files/scripts/quests/quest.lua")
 local STATUS = dofile_once("mods/noita-quest/files/scripts/quests/quest_status.lua")
+local QUEST = dofile_once("mods/noita-quest/files/scripts/quests/quest_names.lua")
 
 local function get_current_player_gold()
   local player = GetPlayerEntity()
@@ -16,12 +17,9 @@ local function get_current_player_gold()
   return gold
 end
 
-local function init(self)
-  self.start_gold = get_current_player_gold()
-end
-
 local function update(self)
-  if get_current_player_gold() - self.start_gold >= 2000 then
+  self.current_value = get_current_player_gold()
+  if self.current_value >= self.goal_value then
     self.status = STATUS.COMPLETED
   end
 end
@@ -52,17 +50,23 @@ local function new()
   local REWARD = dofile_once("mods/noita-quest/files/scripts/rewards/reward_names.lua")
   local PUNISHMENT = dofile_once("mods/noita-quest/files/scripts/punishments/punishment_names.lua")
 
+  local start_gold = get_current_player_gold()
+  local target_gold = 2000
+
   local quest_params = {
-    id = 'collect_gold',
+    id = QUEST.COLLECT_GOLD,
     name = 'You are rich',
     time_sec = 60,
     difficulty = 1,
+    start_gold = start_gold,
+    current_value = 0,
+    goal_value = start_gold + target_gold,
     reward_names = { REWARD.GOLD },
     punishment_names = { PUNISHMENT.GOLD }
   }
 
   local quest_functions = {
-    init = init,
+    init = function() end,
     update = update,
     in_progress = in_progress,
     completed = completed,

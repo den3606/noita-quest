@@ -1,4 +1,5 @@
-Gui = dofile_once("mods/noita-quest/files/scripts/gui/gui.lua")
+local Gui = dofile_once("mods/noita-quest/files/scripts/gui/gui.lua")
+local STATUS = dofile_once("mods/noita-quest/files/scripts/quests/quest_status.lua")
 
 local function draw_quest_board(gui, assigned_quests)
   -- TODO: 死亡後も表示するかは検討
@@ -9,18 +10,6 @@ local function draw_quest_board(gui, assigned_quests)
 
 
   if #assigned_quests ~= 0 then
-    -- パークみたいにリストだけで出すほうがいいかも
-    -- 以下のような表記にして、ホバー時に詳細を出す
-    -- 詳細内容は、成功したときの報酬と失敗したときの罰
-    -- Quests
-    -- └⏰🔫 King of Shotgunner [0/15] -> 放射物を同時に15発だす
-    -- └⏰💰️ Collect Gold [150g/200g]
-    -- └⏰⤵️ Down Down Down [70m/400m]
-    -- └⏰🐉 Beat Dragon [0/1]
-    -- └✅💰️ You are rich [220g/200g]
-    -- └❎💓 Strong Heart [0/3]
-    -- 15, 73
-    -- GuiLayoutBeginVertical(gui, 15, 73)
     GuiLayoutBeginVertical(gui, 15, 75, true, 0, 0)
 
     for index, quest in ipairs(assigned_quests) do
@@ -29,7 +18,20 @@ local function draw_quest_board(gui, assigned_quests)
         "data/ui_gfx/perk_icons/perks_lottery.png")
       GuiImageButton(gui, Gui.new_id('quest_icon_' .. index), 0, 0, "",
         "data/ui_gfx/perk_icons/perks_lottery.png")
-      GuiText(gui, 4, 2.5, quest.time_sec .. "s " .. quest.name)
+
+      local current_value = quest.current_value
+      local goal_value = quest.goal_value
+
+      local quest_text = quest.name
+
+      if quest.status == STATUS.IN_PROGRESS then
+        quest_text = quest.time_sec .. "s " .. quest_text
+      end
+
+      if current_value and goal_value then
+        quest_text = quest_text .. " [" .. current_value .. "/" .. goal_value .. "]"
+      end
+      GuiText(gui, 4, 2.5, quest_text)
       GuiLayoutEnd(gui)
     end
     GuiLayoutEnd(gui)
