@@ -21,8 +21,6 @@ local entity = GetUpdatedEntityID()
 local target_gold = GetInternalVariableValue(entity, "target_gold", "value_int")
 local goal_value = start_gold + target_gold
 
-print("goal_value: " .. tostring(goal_value))
-
 SetInternalVariableValue(entity, "goal_value", "value_int", goal_value)
 
 EntityAddComponent2(entity, "LuaComponent", {
