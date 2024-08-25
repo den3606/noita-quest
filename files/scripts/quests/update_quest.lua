@@ -22,12 +22,15 @@ local function update(entity, quest_functions)
 
   quest_functions.update(entity)
 
+  -- get updated status
+  status = GetInternalVariableValue(entity, "status", "value_int")
+
   local time_sec = GetInternalVariableValue(entity, "time_sec", "value_int")
   if time_sec == 0 then
     status = STATUS.TIMED_OUT
   end
 
-  after_ation(status, quest_functions)
+  after_ation(entity, status, quest_functions)
 
   if status == STATUS.IN_PROGRESS then
     time_sec = time_sec - 1
@@ -36,7 +39,5 @@ local function update(entity, quest_functions)
   SetInternalVariableValue(entity, "status", "value_int", status)
   SetInternalVariableValue(entity, "time_sec", "value_int", time_sec)
 end
-
-
 
 return { update = update }

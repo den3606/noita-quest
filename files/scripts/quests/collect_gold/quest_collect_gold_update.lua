@@ -30,22 +30,33 @@ local function in_progress(entity)
 end
 
 local function completed(entity)
-  local reward_names = Split(GetInternalVariableValue(entity, "reward_names", "value_string"))
+  local reward_names = Split(GetInternalVariableValue(entity, "reward_names", "value_string"), ",")
+
   for index, reward_name in ipairs(reward_names) do
     local reward_func = dofile_once("mods/noita-quest/files/scripts/rewards/" ..
       reward_name .. ".lua")
-    local data = reward_func()
-    GamePrintImportant('クエストに成功しました', '報酬として' .. data.gold .. 'Gold支払われました')
+    if reward_func then
+      local data = reward_func()
+      GamePrintImportant('クエストに成功しました', '報酬として' .. data.gold .. 'Gold支払われました')
+    else
+      error('can not find reward function')
+    end
   end
 end
 
 local function timed_out(entity)
-  local punishment_names = Split(GetInternalVariableValue(entity, "punishment_names", "value_string"))
+  local punishment_names = Split(
+    GetInternalVariableValue(entity, "punishment_names", "value_string"), ",")
+
   for index, punishment_name in ipairs(punishment_names) do
     local punishment_func = dofile_once("mods/noita-quest/files/scripts/punishments/" ..
       punishment_name .. ".lua")
-    local data = punishment_func()
-    GamePrintImportant('クエストに失敗しました', '罰則として' .. data.gold .. 'Gold失いました')
+    if punishment_func then
+      local data = punishment_func()
+      GamePrintImportant('クエストに失敗しました', '罰則として' .. data.gold .. 'Gold失いました')
+    else
+      error('can not find punishment function')
+    end
   end
 end
 

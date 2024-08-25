@@ -10,7 +10,7 @@
   ></VariableStorageComponent>
   <VariableStorageComponent
     name="time_sec"
-    value_int="60"
+    value_int="5"
   ></VariableStorageComponent>
   <VariableStorageComponent
     name="difficulty"
