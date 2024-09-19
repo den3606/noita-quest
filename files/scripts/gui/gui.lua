@@ -1,4 +1,5 @@
 local METADATA = dofile_once("mods/noita-quest/files/scripts/metadata.lua")
+dofile_once("data/scripts/lib/utilities.lua")
 dofile_once("mods/noita-quest/files/scripts/lib/utilities.lua")
 local gui = gui or GuiCreate()
 
@@ -6,6 +7,7 @@ local function draw(execute_func)
   GuiStartFrame(gui)
   GuiIdPushString(gui, METADATA.MOD_NAME)
   if not GameIsInventoryOpen() then
+    GuiOptionsAdd(gui, GUI_OPTION.TextRichRendering)
     execute_func(gui)
   end
   GuiIdPop(gui)

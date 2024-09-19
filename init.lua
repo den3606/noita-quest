@@ -3,12 +3,13 @@ local Coil = dofile_once("mods/noita-quest/files/scripts/lib/coil/coil.lua")
 local QuestManager = dofile_once("mods/noita-quest/files/scripts/quest_manager.lua")
 local Gui = dofile_once("mods/noita-quest/files/scripts/gui/gui.lua")
 local QuestBoardGui = dofile_once("mods/noita-quest/files/scripts/gui/quest_board.lua")
-local QUEST = dofile_once("mods/noita-quest/files/scripts/quests/quest_names.lua")
+local QuestSelectionBoardGui = dofile_once(
+  "mods/noita-quest/files/scripts/gui/quest_selection_board.lua")
 
 print("noita-quest load")
 
 function OnModPreInit()
-  -- print("Mod - OnModPreInit()") -- First this is called for all mods
+  dofile_once("mods/noita-quest/files/scripts/translate_csv_append.lua")
 end
 
 function OnModInit()
@@ -20,9 +21,11 @@ function OnModPostInit()
 end
 
 function OnPlayerSpawned(player_entity)
-  -- playerが選んだクエスト
-  local player_picked_quest_ids = { QUEST.COLLECT_GOLD, QUEST.COLLECT_GOLD }
-  QuestManager.add(player_picked_quest_ids)
+  local controls_component = EntityGetFirstComponentIncludingDisabled(player_entity,
+    "ControlsComponent")
+  if controls_component then
+    ComponentSetValue2(controls_component, "enabled", false)
+  end
 end
 
 function OnWorldInitialized() -- This is called once the game world is initialized. Doesn't ensure any world chunks actually exist. Use OnPlayerSpawned to ensure the chunks around player have been loaded or created.
@@ -35,7 +38,8 @@ end
 
 function OnWorldPostUpdate() -- This is called every time the game has finished updating the world
   Gui.draw(function(gui)
-    QuestBoardGui.draw_quest_board(gui, QuestManager.get_assigned_quest_entities())
+    QuestSelectionBoardGui.draw_quest_selection_board(gui)
+    -- QuestBoardGui.draw_quest_board(gui, QuestManager.get_assigned_quest_entities())
   end)
 end
 

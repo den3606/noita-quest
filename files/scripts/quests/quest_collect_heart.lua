@@ -1,6 +1,5 @@
 local quest = dofile_once("mods/noita-quest/files/scripts/quests/quest.lua")
 local STATUS = dofile_once("mods/noita-quest/files/scripts/quests/quest_status.lua")
-local QUEST = dofile_once("mods/noita-quest/files/scripts/quests/quest_names.lua")
 
 local function init(self)
   print('init process')

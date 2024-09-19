@@ -1,0 +1,6 @@
+<Entity tags="noita_uqest, quest">
+  <VariableStorageComponent
+    name="status"
+    value_int="1"
+  ></VariableStorageComponent>
+</Entity>

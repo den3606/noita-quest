@@ -1,0 +1,7 @@
+<Entity name="quest_collect_heart">
+  <Base file="mods/noita-quest/files/entities/quests/base_quest.xml">
+  </Base>
+  <!-- <LuaComponent
+  script_source_file="mods/noita-quest/files/scripts/quests/collect_gold/quest_collect_heart_init.lua"
+  ></LuaComponent> -->
+</Entity>
